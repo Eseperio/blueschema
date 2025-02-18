@@ -94,10 +94,10 @@ support for various frameworks and integrate AI-assisted application generation.
 🤝 **Want to contribute?** Feel free to collaborate, suggest improvements, or support the project!
 
 
-[best-practices.md](docs/best-practices.md)
-[faq.md](docs/faq.md)
-[how-to-use.md](docs/how-to-use.md)
-[integration-guide.md](docs/integration-guide.md)
-[roadmap.md](docs/roadmap.md)
-[schema-definition.md](docs/schema-definition.md)
+- [best-practices.md](docs/best-practices.md)
+- [faq.md](docs/faq.md)
+- [how-to-use.md](docs/how-to-use.md)
+- [integration-guide.md](docs/integration-guide.md)
+- [roadmap.md](docs/roadmap.md)
+- [schema-definition.md](docs/schema-definition.md)
 
