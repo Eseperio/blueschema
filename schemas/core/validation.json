@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Validation Schema",
+  "type": "object",
+  "properties": {
+    "required": {
+      "type": "boolean",
+      "description": "Indicates whether the field is required"
+    },
+    "unique": {
+      "type": "boolean",
+      "description": "Indicates whether the field value must be unique"
+    },
+    "minLength": {
+      "type": "integer",
+      "description": "Minimum length for string fields",
+      "minimum": 1
+    },
+    "maxLength": {
+      "type": "integer",
+      "description": "Maximum length for string fields",
+      "minimum": 1
+    },
+    "minValue": {
+      "type": "number",
+      "description": "Minimum allowed value for numeric fields"
+    },
+    "maxValue": {
+      "type": "number",
+      "description": "Maximum allowed value for numeric fields"
+    },
+    "pattern": {
+      "type": "string",
+      "description": "Regular expression pattern the field must match"
+    },
+    "email": {
+      "type": "boolean",
+      "description": "Indicates whether the field must be a valid email format"
+    },
+    "url": {
+      "type": "boolean",
+      "description": "Indicates whether the field must be a valid URL format"
+    },
+    "enum": {
+      "type": "array",
+      "description": "Specifies a list of allowed values for the field",
+      "items": {
+        "type": ["string", "number"]
+      }
+    }
+  }
+}

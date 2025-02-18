@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Field Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Field name in snake_case format"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "string",
+        "text",
+        "integer",
+        "bigInteger",
+        "float",
+        "decimal",
+        "boolean",
+        "date",
+        "datetime",
+        "timestamp",
+        "uuid",
+        "json",
+        "binary"
+      ],
+      "description": "Data type of the field"
+    },
+    "primaryKey": {
+      "type": "boolean",
+      "description": "Indicates if this field is the primary key",
+      "default": false
+    },
+    "unique": {
+      "type": "boolean",
+      "description": "Indicates if the field must be unique",
+      "default": false
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Indicates if the field is required (NOT NULL)",
+      "default": false
+    },
+    "default": {
+      "description": "Default value for the field",
+      "anyOf": [
+        { "type": "string" },
+        { "type": "number" },
+        { "type": "boolean" },
+        { "type": "null" }
+      ]
+    },
+    "length": {
+      "type": "integer",
+      "description": "Maximum length for string-based fields",
+      "minimum": 1
+    },
+    "precision": {
+      "type": "integer",
+      "description": "Total number of digits for decimal fields"
+    },
+    "scale": {
+      "type": "integer",
+      "description": "Number of decimal places for decimal fields"
+    },
+    "index": {
+      "type": "boolean",
+      "description": "Indicates if the field should be indexed",
+      "default": false
+    },
+    "foreignKey": {
+      "type": "object",
+      "description": "Foreign key reference if the field is a relation",
+      "properties": {
+        "targetEntity": {
+          "type": "string",
+          "description": "Name of the related entity"
+        },
+        "targetField": {
+          "type": "string",
+          "description": "Name of the field in the related entity"
+        },
+        "onDelete": {
+          "type": "string",
+          "enum": ["CASCADE", "SET NULL", "RESTRICT", "NO ACTION"],
+          "description": "Action on delete"
+        }
+      },
+      "required": ["targetEntity", "targetField"]
+    }
+  },
+  "required": ["name", "type"]
+}

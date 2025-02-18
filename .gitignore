@@ -1,0 +1,7 @@
+.idea
+node_modules
+vendor
+
+
+*.js
+package-lock.json
