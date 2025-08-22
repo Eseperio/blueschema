@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/application.json",
+  "title": "Application",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "version", "entities", "actions", "dataSources"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "license": { "type": "string" },
+    "entities": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "./core/entity.json" },
+      "uniqueItems": true
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "./core/action.json" }
+    },
+    "dataSources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "./core/dataSource.json" },
+      "uniqueItems": true
+    },
+    "environment": {
+      "type": "array",
+      "description": "Environment variables required by the application, such as API keys.",
+      "items": { "$ref": "./core/environment.json" },
+      "uniqueItems": true
+    },
+    "accessControl": { "$ref": "./core/accessControl.json" }
+  }
+}

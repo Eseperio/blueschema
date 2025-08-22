@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Action Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Action name in camelCase format"
+    },
+    "route": {
+      "type": "string",
+      "description": "Optional route or endpoint"
+    },
+    "description": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "array",
+      "description": "Optional parameters for the action",
+      "items": { "$ref": "./parameter.json" },
+      "uniqueItems": true
+    },
+    "responseFormat": {
+      "type": "string",
+      "description": "Expected response format",
+      "enum": ["json", "xml", "html", "text"]
+    },
+    "access": {
+      "type": "array",
+      "description": "Access requirements for the action",
+      "items": { "$ref": "./access.json" },
+      "uniqueItems": true
+    },
+    "view": {
+      "description": "Optional view definition",
+      "$ref": "./view.json"
+    }
+  },
+  "required": ["name"],
+  "additionalProperties": false
+}

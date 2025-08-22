@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Access Control Schema",
+  "type": "object",
+  "properties": {
+    "roles": {
+      "type": "array",
+      "description": "List of application roles",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Role name"
+          },
+          "permissions": {
+            "type": "array",
+            "description": "List of permissions granted to the role",
+            "items": { "type": "string" },
+            "uniqueItems": true
+          }
+        },
+        "required": ["name", "permissions"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": ["roles"]
+}

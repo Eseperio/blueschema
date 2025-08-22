@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Access Rule Schema",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "Role required to execute the action"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Prompt that must be satisfied"
+    }
+  },
+  "oneOf": [
+    { "required": ["role"] },
+    { "required": ["prompt"] }
+  ],
+  "additionalProperties": false
+}

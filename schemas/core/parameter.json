@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Parameter Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Parameter name"
+    },
+    "in": {
+      "type": "string",
+      "enum": ["query", "path", "header", "cookie"],
+      "description": "Location of the parameter"
+    },
+    "description": {
+      "type": "string"
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Indicates if the parameter is required",
+      "default": false
+    },
+    "schema": {
+      "type": "object",
+      "description": "JSON Schema describing the parameter value"
+    }
+  },
+  "required": ["name", "in"],
+  "additionalProperties": false
+}
