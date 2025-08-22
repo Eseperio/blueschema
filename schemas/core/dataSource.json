@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Data Source Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Data source name"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["database", "api", "queue", "file"],
+      "description": "Type of data source"
+    },
+    "config": {
+      "type": "object",
+      "description": "Connection configuration",
+      "additionalProperties": true
+    }
+  },
+  "required": ["name", "type", "config"]
+}

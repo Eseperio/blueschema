@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Environment Variable",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the environment variable"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the variable's purpose"
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Indicates whether the variable is required",
+      "default": true
+    },
+    "default": {
+      "type": "string",
+      "description": "Default value if not provided"
+    }
+  },
+  "required": ["name"]
+}
+
