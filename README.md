@@ -1,6 +1,6 @@
 # BlueSchema
 
-BlueSchema is a collection of JSON Schemas that describe an application in a structured way so AI tools can easily understand every component. The schemas capture entities, actions, data sources, environment variables, access control, and basic views. Each action includes a `description` that explains what the action does, acting as the prompt for AI-assisted tooling.
+BlueSchema is a collection of JSON Schemas that describe an application in a structured way so AI tools can easily understand every component. The schemas capture entities, actions, services, data sources, environment variables, access control, and basic views. Each action and service includes a `description` that explains what it does, acting as the prompt for AI-assisted tooling.
 
 ## Why BlueSchema?
 
@@ -22,7 +22,12 @@ Using a schema-driven approach for code generation offers several advantages ove
 | `core/environment.json` | Specifies required environment variables. |
 | `core/access.json` | Rule describing who can access what. |
 | `core/accessControl.json` | Application-wide roles and permissions. |
+| `core/service.json` | Defines services available to the application. The `description` acts as the service's prompt. |
 | `core/view.json` | Basic view structure for UI components. |
+
+## How to Use
+
+BlueSchema is only a definition leveraged by code generators to build applications. To get started, create a JSON file that conforms to these schemas; generators will consume it to produce your application.
 
 ## Proposed Code Generators
 
@@ -66,10 +71,3 @@ Below is a list of planned code generators for different programming languages a
 BlueSchema is still under development and not yet ready for production use. Stay tuned for updates as we expand support for various frameworks and integrate AI-assisted application generation.
 
 🤝 **Want to contribute?** Feel free to collaborate, suggest improvements, or support the project!
-
-- [best-practices.md](docs/best-practices.md)
-- [faq.md](docs/faq.md)
-- [how-to-use.md](docs/how-to-use.md)
-- [integration-guide.md](docs/integration-guide.md)
-- [roadmap.md](docs/roadmap.md)
-- [schema-definition.md](docs/schema-definition.md)

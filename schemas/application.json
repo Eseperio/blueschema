@@ -28,6 +28,12 @@
       "items": { "$ref": "./core/dataSource.json" },
       "uniqueItems": true
     },
+    "services": {
+      "type": "array",
+      "description": "Services the application exposes. Each service's description acts as its prompt.",
+      "items": { "$ref": "./core/service.json" },
+      "uniqueItems": true
+    },
     "environment": {
       "type": "array",
       "description": "Environment variables required by the application, such as API keys.",
