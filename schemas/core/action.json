@@ -33,7 +33,7 @@
     },
     "view": {
       "description": "Optional view definition",
-      "$ref": "./view.json"
+      "$ref": "../view/view.json"
     }
   },
   "required": ["name"],

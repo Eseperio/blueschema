@@ -23,7 +23,7 @@ Using a schema-driven approach for code generation offers several advantages ove
 | `core/access.json` | Rule describing who can access what. |
 | `core/accessControl.json` | Application-wide roles and permissions. |
 | `core/service.json` | Defines services available to the application. The `description` acts as the service's prompt. |
-| `core/view.json` | Basic view structure for UI components. |
+| `view/view.json` | View layout composed of rows, columns, and components. |
 
 ## How to Use
 

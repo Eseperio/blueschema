@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Horizontal Menu Component Schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "menuHorizontal"
+    },
+    "description": {
+      "type": "string",
+      "description": "Instructions for customizing this horizontal menu"
+    },
+    "items": {
+      "type": "array",
+      "description": "Menu item identifiers",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["type"],
+  "additionalProperties": false
+}
