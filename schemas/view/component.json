@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Component Schema",
+  "oneOf": [
+    { "$ref": "./table.json" },
+    { "$ref": "./list.json" },
+    { "$ref": "./card.json" },
+    { "$ref": "./cardWithIcon.json" },
+    { "$ref": "./menuHorizontal.json" },
+    { "$ref": "./menuVertical.json" }
+  ]
+}

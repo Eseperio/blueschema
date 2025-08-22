@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Column Schema",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Instructions for customizing this column"
+    },
+    "width": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Column width as a percentage of the row"
+    },
+    "components": {
+      "type": "array",
+      "description": "Components contained in this column",
+      "items": { "$ref": "./component.json" }
+    }
+  },
+  "required": ["components"],
+  "additionalProperties": false
+}

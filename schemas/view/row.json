@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Row Schema",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Instructions for customizing this row"
+    },
+    "columns": {
+      "type": "array",
+      "description": "Columns within this row",
+      "items": { "$ref": "./column.json" },
+      "minItems": 1
+    }
+  },
+  "required": ["columns"],
+  "additionalProperties": false
+}
