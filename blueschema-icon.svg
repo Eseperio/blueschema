@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0e4a7a"></stop>
+      <stop offset="1" stop-color="#08385d"></stop>
+    </linearGradient>
+
+    <linearGradient id="topSheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".35"></stop>
+      <stop offset=".5" stop-color="#ffffff" stop-opacity="0"></stop>
+    </linearGradient>
+
+    <style>
+      .gridMajor { stroke:#2a5b80; stroke-width:4; opacity:.85 }
+      .gridMinor { stroke:#2a5b80; stroke-width:2; opacity:.45 }
+    </style>
+  </defs>
+
+  <!-- Rounded icon background -->
+  <rect x="32" y="32" width="960" height="960" rx="208" fill="url(#bgGrad)"></rect>
+
+  <!-- Grid across entire icon -->
+  <g>
+    <!-- vertical major -->
+    <line class="gridMajor" x1="192" y1="32" x2="192" y2="992"></line>
+    <line class="gridMajor" x1="320" y1="32" x2="320" y2="992"></line>
+    <line class="gridMajor" x1="448" y1="32" x2="448" y2="992"></line>
+    <line class="gridMajor" x1="576" y1="32" x2="576" y2="992"></line>
+    <line class="gridMajor" x1="704" y1="32" x2="704" y2="992"></line>
+    <line class="gridMajor" x1="832" y1="32" x2="832" y2="992"></line>
+    <!-- vertical minor -->
+    <line class="gridMinor" x1="128" y1="32" x2="128" y2="992"></line>
+    <line class="gridMinor" x1="256" y1="32" x2="256" y2="992"></line>
+    <line class="gridMinor" x1="384" y1="32" x2="384" y2="992"></line>
+    <line class="gridMinor" x1="512" y1="32" x2="512" y2="992"></line>
+    <line class="gridMinor" x1="640" y1="32" x2="640" y2="992"></line>
+    <line class="gridMinor" x1="768" y1="32" x2="768" y2="992"></line>
+    <line class="gridMinor" x1="896" y1="32" x2="896" y2="992"></line>
+
+    <!-- horizontal major -->
+    <line class="gridMajor" x1="32" y1="192" x2="992" y2="192"></line>
+    <line class="gridMajor" x1="32" y1="320" x2="992" y2="320"></line>
+    <line class="gridMajor" x1="32" y1="448" x2="992" y2="448"></line>
+    <line class="gridMajor" x1="32" y1="576" x2="992" y2="576"></line>
+    <line class="gridMajor" x1="32" y1="704" x2="992" y2="704"></line>
+    <line class="gridMajor" x1="32" y1="832" x2="992" y2="832"></line>
+    <!-- horizontal minor -->
+    <line class="gridMinor" x1="32" y1="128" x2="992" y2="128"></line>
+    <line class="gridMinor" x1="32" y1="256" x2="992" y2="256"></line>
+    <line class="gridMinor" x1="32" y1="384" x2="992" y2="384"></line>
+    <line class="gridMinor" x1="32" y1="512" x2="992" y2="512"></line>
+    <line class="gridMinor" x1="32" y1="640" x2="992" y2="640"></line>
+    <line class="gridMinor" x1="32" y1="768" x2="992" y2="768"></line>
+    <line class="gridMinor" x1="32" y1="896" x2="992" y2="896"></line>
+  </g>
+
+  <!-- Brackets -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-weight="700" fill="#80c1df" text-anchor="middle">
+    <text x="360" y="640" font-size="400">{</text>
+    <text x="660" y="640" font-size="400">}</text>
+  </g>
+
+  <!-- Robot head between brackets -->
+  <g transform="translate(510,540)">
+    <!-- Head body -->
+    <rect x="-120" y="-100" width="240" height="180" rx="30" ry="30" fill="#0b3f67" stroke="#80c1df" stroke-width="6"></rect>
+    <!-- Eyes -->
+    <circle cx="-50" cy="-20" r="25" fill="#80c1df"></circle>
+    <circle cx="50" cy="-20" r="25" fill="#80c1df"></circle>
+    <!-- Antenna -->
+    <line x1="0" y1="-100" x2="0" y2="-160" stroke="#80c1df" stroke-width="6"></line>
+    <circle cx="0" cy="-165" r="12" fill="#80c1df"></circle>
+    <!-- Mouth -->
+    <rect x="-60" y="40" width="120" height="20" rx="5" ry="5" fill="#80c1df"></rect>
+  </g>
+
+  <!-- Top gloss -->
+  <rect x="32" y="32" width="960" height="480" rx="208" fill="url(#topSheen)"></rect>
+</svg>
