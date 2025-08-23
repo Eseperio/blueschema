@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Group Schema",
+  "type": "object",
+  "properties": {
+    "routeSuffix": {
+      "type": "string",
+      "description": "Route segment appended to contained actions"
+    },
+    "actions": {
+      "type": "array",
+      "description": "Actions and nested groups within this group",
+      "items": {
+        "oneOf": [
+          { "$ref": "./action.json" },
+          { "$ref": "#" }
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["routeSuffix", "actions"],
+  "additionalProperties": false
+}

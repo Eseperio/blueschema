@@ -20,7 +20,12 @@
     "actions": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "./core/action.json" }
+      "items": {
+        "oneOf": [
+          { "$ref": "./core/action.json" },
+          { "$ref": "./core/group.json" }
+        ]
+      }
     },
     "dataSources": {
       "type": "array",
