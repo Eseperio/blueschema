@@ -20,6 +20,12 @@
       "items": { "$ref": "./parameter.json" },
       "uniqueItems": true
     },
+    "useServices": {
+      "type": "array",
+      "description": "Services used by this action, referenced by title",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
     "responseFormat": {
       "type": "string",
       "description": "Expected response format",
