@@ -1,0 +1,517 @@
+{
+    "id": "billing-app",
+    "name": "Billing App",
+    "version": "1.0.0",
+    "description": "Simple billing application",
+    "entities": [
+        {
+            "name": "User",
+            "tableName": "users",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uuid",
+                    "primaryKey": true
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "email",
+                    "type": "string",
+                    "unique": true
+                },
+                {
+                    "name": "password_hash",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Customer",
+            "tableName": "customers",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uuid",
+                    "primaryKey": true
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "required": true
+                },
+                {
+                    "name": "email",
+                    "type": "string",
+                    "unique": true
+                }
+            ]
+        },
+        {
+            "name": "Invoice",
+            "tableName": "invoices",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uuid",
+                    "primaryKey": true
+                },
+                {
+                    "name": "customer_id",
+                    "type": "uuid",
+                    "foreignKey": {
+                        "targetEntity": "Customer",
+                        "targetField": "id",
+                        "onDelete": "CASCADE"
+                    }
+                },
+                {
+                    "name": "total",
+                    "type": "decimal",
+                    "precision": 10,
+                    "scale": 2
+                },
+                {
+                    "name": "issued_at",
+                    "type": "date"
+                }
+            ]
+        },
+        {
+            "name": "InvoiceItem",
+            "tableName": "invoice_items",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uuid",
+                    "primaryKey": true
+                },
+                {
+                    "name": "invoice_id",
+                    "type": "uuid",
+                    "foreignKey": {
+                        "targetEntity": "Invoice",
+                        "targetField": "id",
+                        "onDelete": "CASCADE"
+                    }
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "quantity",
+                    "type": "integer"
+                },
+                {
+                    "name": "unit_price",
+                    "type": "decimal",
+                    "precision": 10,
+                    "scale": 2
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "createCustomer",
+            "description": "Creates a customer and saves it in the database",
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "form",
+                                        "header": "Create Customer"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                }
+            ]
+        },
+        {
+            "name": "listCustomers",
+            "description": "Returns customers stored in the database",
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "table",
+                                        "header": "Customers"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                },
+                {
+                    "role": "viewer"
+                }
+            ]
+        },
+        {
+            "name": "getCustomer",
+            "description": "Retrieves a single customer from the database",
+            "parameters": [
+                {
+                    "name": "customerId",
+                    "in": "path",
+                    "description": "Identifier of the customer",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                }
+            ],
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "card",
+                                        "header": "Customer Details"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                },
+                {
+                    "role": "viewer"
+                }
+            ]
+        },
+        {
+            "name": "createInvoice",
+            "description": "Creates an invoice for a customer, saves it and its items in the database, and generates a PDF",
+            "useServices": [
+                "invoicePdfService",
+                "invoiceNumberService"
+            ],
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "form",
+                                        "header": "Create Invoice"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                }
+            ]
+        },
+        {
+            "name": "listInvoices",
+            "description": "Returns invoices stored in the database",
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "table",
+                                        "header": "Invoices"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                },
+                {
+                    "role": "viewer"
+                }
+            ]
+        },
+        {
+            "name": "getInvoice",
+            "description": "Retrieves a single invoice with its items from the database",
+            "parameters": [
+                {
+                    "name": "invoiceId",
+                    "in": "path",
+                    "description": "Identifier of the invoice",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                }
+            ],
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "card",
+                                        "header": "Invoice Details"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                },
+                {
+                    "role": "viewer"
+                }
+            ]
+        },
+        {
+            "name": "createUser",
+            "description": "Creates a user and saves it in the database",
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "form",
+                                        "header": "Create User"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                }
+            ]
+        },
+        {
+            "name": "listUsers",
+            "description": "Returns users stored in the database",
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "table",
+                                        "header": "Users"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                }
+            ]
+        },
+        {
+            "name": "getUser",
+            "description": "Retrieves a single user from the database",
+            "parameters": [
+                {
+                    "name": "userId",
+                    "in": "path",
+                    "description": "Identifier of the user",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                }
+            ],
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "card",
+                                        "header": "User Details"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                }
+            ]
+        },
+        {
+            "name": "getMyAccount",
+            "description": "Returns profile information for the authenticated user",
+            "view": {
+                "rows": [
+                    {
+                        "columns": [
+                            {
+                                "width": 100,
+                                "components": [
+                                    {
+                                        "type": "card",
+                                        "header": "My Account",
+                                        "description": "Displays the current user's profile data"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "access": [
+                {
+                    "role": "admin"
+                },
+                {
+                    "role": "viewer"
+                }
+            ]
+        }
+    ],
+    "dataSources": [
+        {
+            "name": "postgres",
+            "type": "database",
+            "config": {
+                "host": "${DB_HOST}",
+                "port": "${DB_PORT}",
+                "database": "${DB_NAME}",
+                "user": "${DB_USER}",
+                "password": "${DB_PASSWORD}"
+            }
+        }
+    ],
+    "services": [
+        {
+            "title": "invoicePdfService",
+            "description": "Generates a PDF document for an invoice using the invoice data"
+        },
+        {
+            "title": "invoiceNumberService",
+            "description": "Produces sequential invoice numbers ensuring uniqueness"
+        }
+    ],
+    "environment": [
+        {
+            "name": "DB_HOST",
+            "description": "Database server host"
+        },
+        {
+            "name": "DB_PORT",
+            "description": "Database server port",
+            "default": "5432"
+        },
+        {
+            "name": "DB_NAME",
+            "description": "Database name"
+        },
+        {
+            "name": "DB_USER",
+            "description": "Database user"
+        },
+        {
+            "name": "DB_PASSWORD",
+            "description": "Database password",
+            "required": false
+        },
+        {
+            "name": "DATABASE_URL",
+            "description": "Optional full PostgreSQL connection string",
+            "required": false
+        }
+    ],
+    "accessControl": {
+        "roles": [
+            {
+                "name": "admin",
+                "permissions": [
+                    "createCustomer",
+                    "listCustomers",
+                    "getCustomer",
+                    "createInvoice",
+                    "listInvoices",
+                    "getInvoice",
+                    "createUser",
+                    "listUsers",
+                    "getUser",
+                    "getMyAccount"
+                ]
+            },
+            {
+                "name": "viewer",
+                "permissions": [
+                    "listCustomers",
+                    "getCustomer",
+                    "listInvoices",
+                    "getInvoice",
+                    "getMyAccount"
+                ]
+            }
+        ]
+    }
+}
