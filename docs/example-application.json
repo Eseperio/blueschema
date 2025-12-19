@@ -1,0 +1,1116 @@
+{
+  "id": "blog-app-001",
+  "name": "Blog Application",
+  "version": "1.0.0",
+  "description": "A complete blog application demonstrating all BlueSchema features",
+  "license": "MIT",
+  "entities": [
+    {
+      "name": "User",
+      "tableName": "users",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "length": 255,
+          "unique": true,
+          "required": true,
+          "index": true
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "length": 100,
+          "unique": true,
+          "required": true
+        },
+        {
+          "name": "password_hash",
+          "type": "string",
+          "length": 255,
+          "required": true
+        },
+        {
+          "name": "first_name",
+          "type": "string",
+          "length": 100
+        },
+        {
+          "name": "last_name",
+          "type": "string",
+          "length": 100
+        },
+        {
+          "name": "bio",
+          "type": "text"
+        },
+        {
+          "name": "is_active",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "length": 50,
+          "default": "reader"
+        }
+      ],
+      "relations": [
+        {
+          "type": "hasMany",
+          "targetEntity": "Post",
+          "sourceField": "id",
+          "targetField": "author_id",
+          "onDelete": "CASCADE"
+        },
+        {
+          "type": "hasMany",
+          "targetEntity": "Comment",
+          "sourceField": "id",
+          "targetField": "user_id",
+          "onDelete": "CASCADE"
+        }
+      ],
+      "timestamps": true,
+      "softDeletes": true
+    },
+    {
+      "name": "Post",
+      "tableName": "posts",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "length": 255,
+          "required": true,
+          "index": true
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "length": 255,
+          "unique": true,
+          "required": true,
+          "index": true
+        },
+        {
+          "name": "content",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "excerpt",
+          "type": "text"
+        },
+        {
+          "name": "published",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "published_at",
+          "type": "datetime"
+        },
+        {
+          "name": "view_count",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "author_id",
+          "type": "uuid",
+          "required": true,
+          "index": true,
+          "foreignKey": {
+            "targetEntity": "User",
+            "targetField": "id",
+            "onDelete": "CASCADE"
+          }
+        },
+        {
+          "name": "category_id",
+          "type": "uuid",
+          "index": true,
+          "foreignKey": {
+            "targetEntity": "Category",
+            "targetField": "id",
+            "onDelete": "SET NULL"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "type": "hasOne",
+          "targetEntity": "User",
+          "sourceField": "author_id",
+          "targetField": "id"
+        },
+        {
+          "type": "hasOne",
+          "targetEntity": "Category",
+          "sourceField": "category_id",
+          "targetField": "id"
+        },
+        {
+          "type": "hasMany",
+          "targetEntity": "Comment",
+          "sourceField": "id",
+          "targetField": "post_id",
+          "onDelete": "CASCADE"
+        }
+      ],
+      "timestamps": true,
+      "softDeletes": true
+    },
+    {
+      "name": "Category",
+      "tableName": "categories",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "length": 100,
+          "unique": true,
+          "required": true
+        },
+        {
+          "name": "slug",
+          "type": "string",
+          "length": 100,
+          "unique": true,
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "text"
+        }
+      ],
+      "relations": [
+        {
+          "type": "hasMany",
+          "targetEntity": "Post",
+          "sourceField": "id",
+          "targetField": "category_id",
+          "onDelete": "SET NULL"
+        }
+      ],
+      "timestamps": true,
+      "softDeletes": false
+    },
+    {
+      "name": "Comment",
+      "tableName": "comments",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "approved",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "required": true,
+          "index": true,
+          "foreignKey": {
+            "targetEntity": "User",
+            "targetField": "id",
+            "onDelete": "CASCADE"
+          }
+        },
+        {
+          "name": "post_id",
+          "type": "uuid",
+          "required": true,
+          "index": true,
+          "foreignKey": {
+            "targetEntity": "Post",
+            "targetField": "id",
+            "onDelete": "CASCADE"
+          }
+        }
+      ],
+      "relations": [
+        {
+          "type": "hasOne",
+          "targetEntity": "User",
+          "sourceField": "user_id",
+          "targetField": "id"
+        },
+        {
+          "type": "hasOne",
+          "targetEntity": "Post",
+          "sourceField": "post_id",
+          "targetField": "id"
+        }
+      ],
+      "timestamps": true,
+      "softDeletes": true
+    }
+  ],
+  "actions": [
+    {
+      "routeSuffix": "/auth",
+      "actions": [
+        {
+          "name": "register",
+          "route": "/register",
+          "description": "Register a new user account with email and password. Hash the password securely before storing. Send a welcome email to the user.",
+          "parameters": [
+            {
+              "name": "email",
+              "in": "query",
+              "description": "User's email address",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "email"
+              }
+            },
+            {
+              "name": "username",
+              "in": "query",
+              "description": "Desired username",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 100
+              }
+            },
+            {
+              "name": "password",
+              "in": "query",
+              "description": "User's password",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "minLength": 8
+              }
+            }
+          ],
+          "useServices": ["emailService", "authService"],
+          "responseFormat": "json",
+          "view": {
+            "description": "Registration form with email, username, and password fields",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": 100,
+                    "components": [
+                      {
+                        "type": "card",
+                        "header": "Create Your Account",
+                        "description": "Show a registration form with email, username, and password input fields, and a submit button"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "login",
+          "route": "/login",
+          "description": "Authenticate a user with email and password. Verify the password hash matches. Generate and return a JWT token for the session.",
+          "parameters": [
+            {
+              "name": "email",
+              "in": "query",
+              "description": "User's email address",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "email"
+              }
+            },
+            {
+              "name": "password",
+              "in": "query",
+              "description": "User's password",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "useServices": ["authService"],
+          "responseFormat": "json",
+          "view": {
+            "description": "Login form with email and password fields",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": 100,
+                    "components": [
+                      {
+                        "type": "card",
+                        "header": "Sign In",
+                        "description": "Display login form with email and password fields"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "logout",
+          "route": "/logout",
+          "description": "Log out the current user by invalidating their session token",
+          "useServices": ["authService"],
+          "responseFormat": "json",
+          "access": [
+            {
+              "prompt": "User must be authenticated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "routeSuffix": "/posts",
+      "actions": [
+        {
+          "name": "listPosts",
+          "route": "/",
+          "description": "Retrieve a paginated list of published blog posts with their authors and categories. Include view count and publication date. Support filtering by category and sorting by date or popularity.",
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Page number for pagination",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "minimum": 1,
+                "default": 1
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Number of posts per page",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 10
+              }
+            },
+            {
+              "name": "category",
+              "in": "query",
+              "description": "Filter by category slug",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responseFormat": "json",
+          "view": {
+            "description": "Blog post listing with cards showing title, excerpt, author, and date",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": 100,
+                    "components": [
+                      {
+                        "type": "table",
+                        "description": "Table of blog posts with columns for title, author, category, publication date, and view count",
+                        "sortable": true,
+                        "filterable": true,
+                        "paginated": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "getPost",
+          "route": "/{slug}",
+          "description": "Retrieve a single blog post by its slug. Include the full content, author details, category, and approved comments. Increment the view count.",
+          "parameters": [
+            {
+              "name": "slug",
+              "in": "path",
+              "description": "Post slug",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responseFormat": "json",
+          "view": {
+            "description": "Single post view with full content and comments",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": 70,
+                    "components": [
+                      {
+                        "type": "card",
+                        "description": "Display post title, author, publication date, content, and view count"
+                      },
+                      {
+                        "type": "list",
+                        "description": "Show approved comments with commenter name and timestamp",
+                        "ordered": false
+                      }
+                    ]
+                  },
+                  {
+                    "width": 30,
+                    "components": [
+                      {
+                        "type": "cardWithIcon",
+                        "icon": "user",
+                        "description": "Author information card with bio"
+                      },
+                      {
+                        "type": "card",
+                        "header": "Related Posts",
+                        "description": "List of related posts in the same category"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "createPost",
+          "route": "/",
+          "description": "Create a new blog post. Generate a unique slug from the title. The post is initially unpublished. Validate that the title is unique and content is not empty.",
+          "parameters": [
+            {
+              "name": "title",
+              "in": "query",
+              "description": "Post title",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255
+              }
+            },
+            {
+              "name": "content",
+              "in": "query",
+              "description": "Post content in markdown",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            {
+              "name": "excerpt",
+              "in": "query",
+              "description": "Short excerpt or summary",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "categoryId",
+              "in": "query",
+              "description": "Category UUID",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "useServices": ["slugService"],
+          "responseFormat": "json",
+          "access": [
+            {
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "name": "updatePost",
+          "route": "/{id}",
+          "description": "Update an existing blog post. Only the author or an admin can update the post. Update the slug if the title changes.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Post UUID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            {
+              "name": "title",
+              "in": "query",
+              "description": "Post title",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "maxLength": 255
+              }
+            },
+            {
+              "name": "content",
+              "in": "query",
+              "description": "Post content",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "excerpt",
+              "in": "query",
+              "description": "Post excerpt",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "useServices": ["slugService"],
+          "responseFormat": "json",
+          "access": [
+            {
+              "prompt": "User must be the post author or have admin role"
+            }
+          ]
+        },
+        {
+          "name": "publishPost",
+          "route": "/{id}/publish",
+          "description": "Publish a blog post by setting published flag to true and recording the publication timestamp. Only authors and admins can publish posts.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Post UUID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responseFormat": "json",
+          "access": [
+            {
+              "prompt": "User must be the post author or have admin role"
+            }
+          ]
+        },
+        {
+          "name": "deletePost",
+          "route": "/{id}",
+          "description": "Soft delete a blog post. Only the author or an admin can delete the post.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Post UUID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responseFormat": "json",
+          "access": [
+            {
+              "prompt": "User must be the post author or have admin role"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "routeSuffix": "/comments",
+      "actions": [
+        {
+          "name": "createComment",
+          "route": "/",
+          "description": "Create a new comment on a blog post. Comments are initially unapproved and require moderation. Validate that the post exists and content is not empty.",
+          "parameters": [
+            {
+              "name": "postId",
+              "in": "query",
+              "description": "Post UUID to comment on",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            {
+              "name": "content",
+              "in": "query",
+              "description": "Comment content",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              }
+            }
+          ],
+          "useServices": ["notificationService"],
+          "responseFormat": "json",
+          "access": [
+            {
+              "prompt": "User must be authenticated"
+            }
+          ]
+        },
+        {
+          "name": "approveComment",
+          "route": "/{id}/approve",
+          "description": "Approve a comment for public display. Only admins and post authors can approve comments. Send a notification to the commenter.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Comment UUID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "useServices": ["notificationService"],
+          "responseFormat": "json",
+          "access": [
+            {
+              "role": "admin"
+            }
+          ]
+        },
+        {
+          "name": "deleteComment",
+          "route": "/{id}",
+          "description": "Delete a comment. Users can delete their own comments. Admins and post authors can delete any comment.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Comment UUID",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responseFormat": "json",
+          "access": [
+            {
+              "prompt": "User must be the comment author, post author, or have admin role"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "routeSuffix": "/categories",
+      "actions": [
+        {
+          "name": "listCategories",
+          "route": "/",
+          "description": "List all categories with post counts",
+          "responseFormat": "json",
+          "view": {
+            "description": "Category list with post counts",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": 100,
+                    "components": [
+                      {
+                        "type": "list",
+                        "description": "List of categories with names and post counts",
+                        "ordered": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "createCategory",
+          "route": "/",
+          "description": "Create a new category. Generate a unique slug from the name. Validate that the category name is unique.",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "description": "Category name",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              }
+            },
+            {
+              "name": "description",
+              "in": "query",
+              "description": "Category description",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "useServices": ["slugService"],
+          "responseFormat": "json",
+          "access": [
+            {
+              "role": "admin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "routeSuffix": "/admin",
+      "actions": [
+        {
+          "name": "dashboard",
+          "route": "/",
+          "description": "Display admin dashboard with statistics: total users, total posts, total comments, and recent activity",
+          "responseFormat": "json",
+          "access": [
+            {
+              "role": "admin"
+            }
+          ],
+          "view": {
+            "description": "Admin dashboard with statistics and recent activity",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": 25,
+                    "components": [
+                      {
+                        "type": "cardWithIcon",
+                        "icon": "users",
+                        "description": "Total users count"
+                      }
+                    ]
+                  },
+                  {
+                    "width": 25,
+                    "components": [
+                      {
+                        "type": "cardWithIcon",
+                        "icon": "posts",
+                        "description": "Total posts count"
+                      }
+                    ]
+                  },
+                  {
+                    "width": 25,
+                    "components": [
+                      {
+                        "type": "cardWithIcon",
+                        "icon": "comments",
+                        "description": "Total comments count"
+                      }
+                    ]
+                  },
+                  {
+                    "width": 25,
+                    "components": [
+                      {
+                        "type": "cardWithIcon",
+                        "icon": "views",
+                        "description": "Total post views"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "columns": [
+                  {
+                    "width": 100,
+                    "components": [
+                      {
+                        "type": "table",
+                        "description": "Recent activity table showing latest posts, comments, and user registrations",
+                        "sortable": true,
+                        "paginated": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "moderateComments",
+          "route": "/comments",
+          "description": "View and moderate pending comments. Display unapproved comments with approve/reject actions.",
+          "responseFormat": "json",
+          "access": [
+            {
+              "role": "admin"
+            }
+          ],
+          "view": {
+            "description": "Comment moderation interface",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "width": 100,
+                    "components": [
+                      {
+                        "type": "table",
+                        "description": "Table of pending comments with approve and delete actions",
+                        "sortable": true,
+                        "filterable": true,
+                        "paginated": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "dataSources": [
+    {
+      "name": "mainDatabase",
+      "type": "database",
+      "config": {
+        "driver": "postgresql",
+        "host": "${DB_HOST}",
+        "port": "${DB_PORT}",
+        "database": "${DB_NAME}",
+        "username": "${DB_USER}",
+        "password": "${DB_PASSWORD}",
+        "ssl": true,
+        "pool": {
+          "min": 2,
+          "max": 10
+        }
+      }
+    },
+    {
+      "name": "cacheStore",
+      "type": "database",
+      "config": {
+        "driver": "redis",
+        "host": "${REDIS_HOST}",
+        "port": "${REDIS_PORT}",
+        "password": "${REDIS_PASSWORD}",
+        "ttl": 3600
+      }
+    }
+  ],
+  "services": [
+    {
+      "title": "authService",
+      "description": "Handle user authentication and authorization. Verify credentials, hash passwords using bcrypt, generate JWT tokens, and validate tokens. Manage user sessions."
+    },
+    {
+      "title": "emailService",
+      "description": "Send transactional emails including welcome emails, password reset emails, and notifications. Use templates for consistent formatting. Handle email delivery failures gracefully."
+    },
+    {
+      "title": "slugService",
+      "description": "Generate URL-friendly slugs from strings. Ensure uniqueness by appending numbers if needed. Convert to lowercase, replace spaces with hyphens, and remove special characters."
+    },
+    {
+      "title": "notificationService",
+      "description": "Send in-app notifications to users about comment approvals, new comments on their posts, and system updates. Support different notification channels (email, push, in-app)."
+    }
+  ],
+  "environment": [
+    {
+      "name": "DB_HOST",
+      "description": "PostgreSQL database host address",
+      "required": true
+    },
+    {
+      "name": "DB_PORT",
+      "description": "PostgreSQL database port",
+      "required": true,
+      "default": "5432"
+    },
+    {
+      "name": "DB_NAME",
+      "description": "PostgreSQL database name",
+      "required": true
+    },
+    {
+      "name": "DB_USER",
+      "description": "PostgreSQL database username",
+      "required": true
+    },
+    {
+      "name": "DB_PASSWORD",
+      "description": "PostgreSQL database password",
+      "required": true
+    },
+    {
+      "name": "REDIS_HOST",
+      "description": "Redis cache server host",
+      "required": true
+    },
+    {
+      "name": "REDIS_PORT",
+      "description": "Redis cache server port",
+      "required": true,
+      "default": "6379"
+    },
+    {
+      "name": "REDIS_PASSWORD",
+      "description": "Redis server password",
+      "required": false
+    },
+    {
+      "name": "JWT_SECRET",
+      "description": "Secret key for signing JWT tokens",
+      "required": true
+    },
+    {
+      "name": "SMTP_HOST",
+      "description": "SMTP server host for sending emails",
+      "required": true
+    },
+    {
+      "name": "SMTP_PORT",
+      "description": "SMTP server port",
+      "required": true,
+      "default": "587"
+    },
+    {
+      "name": "SMTP_USER",
+      "description": "SMTP authentication username",
+      "required": true
+    },
+    {
+      "name": "SMTP_PASSWORD",
+      "description": "SMTP authentication password",
+      "required": true
+    },
+    {
+      "name": "APP_URL",
+      "description": "Base URL of the application",
+      "required": true
+    }
+  ],
+  "accessControl": {
+    "roles": [
+      {
+        "name": "reader",
+        "permissions": [
+          "posts:read",
+          "comments:read",
+          "comments:create",
+          "comments:delete:own",
+          "categories:read"
+        ]
+      },
+      {
+        "name": "author",
+        "permissions": [
+          "posts:read",
+          "posts:create",
+          "posts:update:own",
+          "posts:delete:own",
+          "posts:publish:own",
+          "comments:read",
+          "comments:create",
+          "comments:delete:own",
+          "comments:approve:own-post",
+          "categories:read"
+        ]
+      },
+      {
+        "name": "admin",
+        "permissions": [
+          "posts:read",
+          "posts:create",
+          "posts:update:all",
+          "posts:delete:all",
+          "posts:publish:all",
+          "comments:read",
+          "comments:create",
+          "comments:update:all",
+          "comments:delete:all",
+          "comments:approve:all",
+          "categories:read",
+          "categories:create",
+          "categories:update",
+          "categories:delete",
+          "users:read",
+          "users:update",
+          "users:delete",
+          "admin:access"
+        ]
+      }
+    ]
+  }
+}
