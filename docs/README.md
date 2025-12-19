@@ -96,6 +96,8 @@ Actions use parameters to define their inputs:
 - **Query parameters**: filtering, pagination, and data submission
 - **Parameter validation**: using JSON Schema (minLength, maxLength, format, etc.)
 
+**Note**: The current parameter schema supports "query", "path", "header", and "cookie" parameter locations, following OpenAPI conventions. In this example, some parameters use "query" location for simplicity and demonstration purposes. In a production REST API, you would typically use request body payloads for POST/PUT operations and sensitive data. The schema descriptions serve as prompts for AI code generators, which can interpret these appropriately for the target framework and generate proper request body handling.
+
 ### Services
 
 The application defines four services that actions can use:
