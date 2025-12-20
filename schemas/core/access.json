@@ -6,12 +6,12 @@
   "properties": {
     "role": {
       "type": "string",
-      "description": "Role name that must exactly match a role defined in accessControl.roles[].name. This is a strict reference - the role must exist in the accessControl configuration.",
+      "description": "Role name that must exactly match a role defined in accessControl.roles[].name. This is a strict reference - the role must exist in the accessControl configuration. Note: Cross-reference validation requires external tooling.",
       "minLength": 1
     },
     "permission": {
       "type": "string",
-      "description": "Permission name that must exactly match a permission defined in accessControl.permissions[] or accessControl.roles[].permissions[]. This is a strict reference - the permission must exist in the accessControl configuration.",
+      "description": "Permission name that must exactly match a permission defined in accessControl.permissions[] or accessControl.roles[].permissions[]. This is a strict reference - the permission must exist in the accessControl configuration. Note: Cross-reference validation requires external tooling.",
       "minLength": 1
     },
     "prompt": {
