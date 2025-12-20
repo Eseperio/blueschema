@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="blueschema-logo.jpeg" alt="Blueschema library logo" width="128"/>
+</p>
+
+
 > [!NOTE]
 > TL;DR; Manipulate large applications with any AI in a controlled and confident way.   
 
