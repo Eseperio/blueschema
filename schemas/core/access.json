@@ -5,15 +5,20 @@
   "properties": {
     "role": {
       "type": "string",
-      "description": "Role required to execute the action"
+      "description": "Role required to execute the action. Should reference a role defined in accessControl.roles"
+    },
+    "permission": {
+      "type": "string",
+      "description": "Permission required to execute the action. Should reference a permission defined in accessControl.permissions or accessControl.roles[].permissions"
     },
     "prompt": {
       "type": "string",
       "description": "Prompt that must be satisfied"
     }
   },
-  "oneOf": [
+  "anyOf": [
     { "required": ["role"] },
+    { "required": ["permission"] },
     { "required": ["prompt"] }
   ],
   "additionalProperties": false

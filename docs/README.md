@@ -132,13 +132,25 @@ Each variable includes a description and indicates whether it's required or has 
 
 ### Access Control
 
+The application demonstrates flexible access control using both roles and permissions:
+
+**Permissions** are defined in `accessControl.permissions` and follow the pattern: `resource:action:scope`
+
 Three roles are defined with different permission sets:
 
 1. **reader**: Can read posts, create and delete own comments
 2. **author**: Can create and manage own posts, moderate comments on their posts
 3. **admin**: Full access to all resources and admin features
 
-Permissions follow a consistent naming pattern: `resource:action:scope`
+**Access rules** on actions can reference either:
+- A **role** (e.g., `"role": "admin"`)
+- A **permission** (e.g., `"permission": "posts:create"`)
+- A **prompt** for custom authorization logic (e.g., `"prompt": "User must be authenticated"`)
+
+This flexible approach allows applications to use:
+- Only roles for simple access control
+- Only permissions for fine-grained control
+- Both roles and permissions for maximum flexibility
 
 ### Views
 

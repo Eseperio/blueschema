@@ -3,6 +3,16 @@
   "title": "Access Control Schema",
   "type": "object",
   "properties": {
+    "permissions": {
+      "type": "array",
+      "description": "List of application permissions that can be assigned to roles or used directly in access rules",
+      "items": {
+        "type": "string",
+        "description": "Permission name"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
     "roles": {
       "type": "array",
       "description": "List of application roles",
@@ -26,5 +36,8 @@
       "uniqueItems": true
     }
   },
-  "required": ["roles"]
+  "anyOf": [
+    { "required": ["roles"] },
+    { "required": ["permissions"] }
+  ]
 }

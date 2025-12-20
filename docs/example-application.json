@@ -570,7 +570,7 @@
           "responseFormat": "json",
           "access": [
             {
-              "role": "author"
+              "permission": "posts:create"
             }
           ]
         },
@@ -732,7 +732,7 @@
           "responseFormat": "json",
           "access": [
             {
-              "role": "admin"
+              "permission": "comments:approve:all"
             }
           ]
         },
@@ -819,7 +819,7 @@
           "responseFormat": "json",
           "access": [
             {
-              "role": "admin"
+              "permission": "categories:create"
             }
           ]
         }
@@ -835,7 +835,7 @@
           "responseFormat": "json",
           "access": [
             {
-              "role": "admin"
+              "permission": "admin:access"
             }
           ],
           "view": {
@@ -910,7 +910,7 @@
           "responseFormat": "json",
           "access": [
             {
-              "role": "admin"
+              "permission": "comments:approve:all"
             }
           ],
           "view": {
@@ -1062,6 +1062,31 @@
     }
   ],
   "accessControl": {
+    "permissions": [
+      "posts:read",
+      "posts:create",
+      "posts:update:own",
+      "posts:update:all",
+      "posts:delete:own",
+      "posts:delete:all",
+      "posts:publish:own",
+      "posts:publish:all",
+      "comments:read",
+      "comments:create",
+      "comments:update:all",
+      "comments:delete:own",
+      "comments:delete:all",
+      "comments:approve:own-post",
+      "comments:approve:all",
+      "categories:read",
+      "categories:create",
+      "categories:update",
+      "categories:delete",
+      "users:read",
+      "users:update",
+      "users:delete",
+      "admin:access"
+    ],
     "roles": [
       {
         "name": "reader",
