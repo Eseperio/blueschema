@@ -11,7 +11,7 @@
     },
     "permission": {
       "type": "string",
-      "description": "Permission name that must exactly match a permission defined in accessControl.permissions[] or accessControl.roles[].permissions[]. This is a strict reference - the permission must exist in the accessControl configuration. Note: Cross-reference validation requires external tooling.",
+      "description": "Permission name that must exactly match a permission defined in accessControl.permissions[]. If permissions are only defined within roles (accessControl.roles[].permissions[]), those can also be referenced. This is a strict reference - the permission must exist in the accessControl configuration. Note: Cross-reference validation requires external tooling.",
       "minLength": 1
     },
     "prompt": {

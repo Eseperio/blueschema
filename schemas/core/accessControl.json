@@ -29,7 +29,7 @@
           },
           "permissions": {
             "type": "array",
-            "description": "List of permissions granted to this role. Each permission must reference a permission defined in the top-level permissions array or be a valid permission identifier. Cross-reference validation requires external tooling.",
+            "description": "List of permissions granted to this role. Best practice is to reference permissions from the top-level permissions array. However, if the top-level permissions array is not defined, these permission strings define the available permissions. Cross-reference validation requires external tooling.",
             "items": { 
               "type": "string",
               "minLength": 1
