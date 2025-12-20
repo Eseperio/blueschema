@@ -1,36 +1,44 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/core/accessControl.json",
   "title": "Access Control Schema",
+  "description": "Defines the source of truth for all roles and permissions in the application. All role and permission references in access rules must match definitions here.",
   "type": "object",
   "properties": {
     "permissions": {
       "type": "array",
-      "description": "List of application permissions that can be assigned to roles or used directly in access rules",
+      "description": "List of all application permissions. Each permission name defined here can be referenced in access rules using the 'permission' property, or assigned to roles. This is the authoritative source for all permission names in the application.",
       "items": {
         "type": "string",
-        "description": "Permission name"
+        "description": "Permission name. Must be unique within this array.",
+        "minLength": 1
       },
       "minItems": 1,
       "uniqueItems": true
     },
     "roles": {
       "type": "array",
-      "description": "List of application roles",
+      "description": "List of all application roles. Each role name defined here can be referenced in access rules using the 'role' property. This is the authoritative source for all role names in the application.",
       "items": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "description": "Role name"
+            "description": "Role name. Must be unique within the roles array. This name can be referenced in access rules.",
+            "minLength": 1
           },
           "permissions": {
             "type": "array",
-            "description": "List of permissions granted to the role",
-            "items": { "type": "string" },
+            "description": "List of permissions granted to this role. Each permission should be either defined in the top-level permissions array or be a valid permission identifier.",
+            "items": { 
+              "type": "string",
+              "minLength": 1
+            },
             "uniqueItems": true
           }
         },
-        "required": ["name", "permissions"]
+        "required": ["name", "permissions"],
+        "additionalProperties": false
       },
       "minItems": 1,
       "uniqueItems": true
@@ -39,5 +47,6 @@
   "anyOf": [
     { "required": ["roles"] },
     { "required": ["permissions"] }
-  ]
+  ],
+  "additionalProperties": false
 }

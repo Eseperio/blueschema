@@ -1,19 +1,23 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/core/access.json",
   "title": "Access Rule Schema",
   "type": "object",
   "properties": {
     "role": {
       "type": "string",
-      "description": "Role required to execute the action. Should reference a role defined in accessControl.roles"
+      "description": "Role name that must exactly match a role defined in accessControl.roles[].name. This is a strict reference - the role must exist in the accessControl configuration.",
+      "minLength": 1
     },
     "permission": {
       "type": "string",
-      "description": "Permission required to execute the action. Should reference a permission defined in accessControl.permissions or accessControl.roles[].permissions"
+      "description": "Permission name that must exactly match a permission defined in accessControl.permissions[] or accessControl.roles[].permissions[]. This is a strict reference - the permission must exist in the accessControl configuration.",
+      "minLength": 1
     },
     "prompt": {
       "type": "string",
-      "description": "Prompt that must be satisfied"
+      "description": "Custom authorization logic prompt that must be satisfied. Used for dynamic access control that cannot be expressed as static roles or permissions.",
+      "minLength": 1
     }
   },
   "anyOf": [
