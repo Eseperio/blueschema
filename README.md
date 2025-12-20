@@ -1,3 +1,6 @@
+> [!NOTE]
+> TL;DR; Manipulate large applications with any AI in a controlled and confident way.   
+
 # BlueSchema
 
 BlueSchema is a collection of JSON Schemas that describe an application in a structured way so AI tools can easily understand every component. The schemas capture entities, actions, groups, services, data sources, environment variables, access control, and basic views. Each action and service includes a `description` that explains what it does, acting as the prompt for AI-assisted tooling.
