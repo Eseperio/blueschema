@@ -5,7 +5,7 @@
   "anyOf": [
     {
       "type": "string",
-      "enum": ["guest", "logged"],
+      "enum": ["guest", "logged", "any"],
       "description": "Built-in permission"
     },
     {
