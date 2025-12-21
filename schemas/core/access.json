@@ -7,13 +7,21 @@
       "type": "string",
       "description": "Role required to execute the action"
     },
+    "permission": {
+      "type": "array",
+      "description": "Permissions required to execute the action",
+      "items": { "$ref": "./permission.json" },
+      "uniqueItems": true,
+      "minItems": 1
+    },
     "prompt": {
       "type": "string",
       "description": "Prompt that must be satisfied"
     }
   },
-  "oneOf": [
+  "anyOf": [
     { "required": ["role"] },
+    { "required": ["permission"] },
     { "required": ["prompt"] }
   ],
   "additionalProperties": false

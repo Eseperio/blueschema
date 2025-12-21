@@ -16,7 +16,7 @@
           "permissions": {
             "type": "array",
             "description": "List of permissions granted to the role",
-            "items": { "type": "string" },
+            "items": { "$ref": "./permission.json" },
             "uniqueItems": true
           }
         },
