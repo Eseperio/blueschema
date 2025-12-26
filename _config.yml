@@ -1,0 +1,46 @@
+title: BlueSchema Documentation
+description: A comprehensive schema system for AI-powered application development
+baseurl: "/blueschema"
+url: "https://eseperio.github.io"
+theme: jekyll-theme-cayman
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Getting Started
+    url: /getting-started
+  - title: Schemas
+    url: /schemas
+  - title: Examples
+    url: /examples
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+
+# Include files
+include:
+  - _pages
+
+# Exclude files
+exclude:
+  - README.md
+  - LICENSE
+  - .git
+  - .gitignore
+  - schemas
+  - docs/example-application.json
+
+# Collections
+collections:
+  schemas:
+    output: true
+    permalink: /schemas/:name/
