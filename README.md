@@ -38,9 +38,9 @@ These schemas define the core business logic, data structures, and application b
 | `core/service.json` | Defines services available to the application. The `description` acts as the service's prompt. |
 | `core/dataSource.json` | Lists available data sources. |
 | `core/environment.json` | Specifies required environment variables. |
-| `core/access.json` | Rule describing who can access what. |
-| `core/accessControl.json` | Application-wide roles and permissions. |
-| `core/permission.json` | Permission definitions including built-in (guest, logged, any) and custom permissions. |
+| `core/access.json` | Access rule for individual actions specifying required role, permissions, or custom prompt. |
+| `core/accessControl.json` | Application-wide access control structure defining roles and their associated permissions. |
+| `core/permission.json` | Permission identifier schema supporting built-in permissions (guest, logged, any) and custom permissions. |
 
 ### Application Visuals Schemas
 These schemas define the user interface layout and visual components:
