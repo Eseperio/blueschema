@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://eseperio.github.io/blueschema/404</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://eseperio.github.io/blueschema/examples/blog-app</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -139,5 +144,10 @@
     <loc>https://eseperio.github.io/blueschema/schemas/view</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://eseperio.github.io/blueschema/search</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
