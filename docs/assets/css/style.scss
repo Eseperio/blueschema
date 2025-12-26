@@ -292,6 +292,43 @@
   text-decoration: underline;
 }
 
+/* Responsive improvements */
+@media screen and (max-width: 768px) {
+  header {
+    position: relative;
+  }
+  
+  .main-navigation {
+    margin-top: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .main-navigation h3 {
+    font-size: 13px;
+    margin-top: 15px;
+  }
+  
+  .main-navigation a {
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+  
+  .quick-nav ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print styles */
+@media print {
+  .main-navigation,
+  .back-to-top,
+  .breadcrumb,
+  .schema-navigation {
+    display: none;
+  }
+}
+
 .schema-card {
   background-color: #f6f8fa;
   padding: 20px;
