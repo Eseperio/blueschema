@@ -2,6 +2,12 @@
 node_modules
 vendor
 
-
 *.js
 package-lock.json
+
+# Jekyll
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+Gemfile.lock
