@@ -18,7 +18,7 @@ The blog application is a complete content management system featuring:
 - 🛡️ **Security** - Role-based access control with three permission levels
 - 🎨 **UI Views** - Predefined layouts for forms, tables, and dashboards
 
-[View the complete source JSON →](https://github.com/Eseperio/blueschema/blob/main/docs/example-application.json)
+[View the complete source JSON →](https://github.com/Eseperio/blueschema/tree/main/docs/example-application.json)
 
 ## Why This Example Matters
 
@@ -434,7 +434,7 @@ Service definitions with descriptions as prompts ensure AI generates consistent,
 
 To use this example:
 
-1. **Download the schema:** [example-application.json](https://github.com/Eseperio/blueschema/blob/main/docs/example-application.json)
+1. **Download the schema:** [example-application.json](https://github.com/Eseperio/blueschema/tree/main/docs/example-application.json)
 
 2. **Validate:** Ensure it conforms to BlueSchema schemas
 
@@ -462,7 +462,7 @@ BlueSchema:
 
 ## Next Steps
 
-- 📖 Study the [complete JSON file](https://github.com/Eseperio/blueschema/blob/main/docs/example-application.json)
+- 📖 Study the [complete JSON file](https://github.com/Eseperio/blueschema/tree/main/docs/example-application.json)
 - 🏗️ Use it as a template for your own application
 - 🔍 Explore individual [schema documentation](/blueschema/schemas/)
 - 🚀 Start building with the [Getting Started Guide](/blueschema/getting-started)

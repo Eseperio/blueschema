@@ -36,8 +36,10 @@ exclude:
   - LICENSE
   - .git
   - .gitignore
-  - schemas
-  - docs/example-application.json
+  - schemas/
+  - Gemfile
+  - Gemfile.lock
+  - GITHUB_PAGES_SETUP.md
 
 # Collections
 collections:

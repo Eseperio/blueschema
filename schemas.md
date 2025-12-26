@@ -110,7 +110,7 @@ These schemas define your application's business logic, data structures, and beh
   <p><strong>Use when:</strong> Creating permissions like posts:create, users:delete, admin:access</p>
 </div>
 
-## Visual Schemas {#visual-schemas}
+## Visual Schemas
 
 These schemas define your application's user interface and layout.
 
