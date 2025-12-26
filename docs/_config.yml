@@ -30,12 +30,5 @@ plugins:
 # Exclude files
 exclude:
   - README.md
-  - LICENSE
-  - .git
-  - .gitignore
-  - schemas/
-  - examples/
-  - assets/
   - Gemfile
   - Gemfile.lock
-  - DOCUMENTATION_SUMMARY.md
