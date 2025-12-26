@@ -3,6 +3,16 @@ layout: default
 title: Getting Started with BlueSchema
 ---
 
+<div class="quick-nav">
+  <h4>📚 Quick Navigation</h4>
+  <ul>
+    <li><a href="#what-is-blueschema">What is BlueSchema?</a></li>
+    <li><a href="#core-concepts">Core Concepts</a></li>
+    <li><a href="#your-first-blueschema-application">Your First Application</a></li>
+    <li><a href="#next-steps">Next Steps</a></li>
+  </ul>
+</div>
+
 # Getting Started with BlueSchema
 
 Welcome to BlueSchema! This guide will help you understand how to use BlueSchema to define your application in a way that both AI tools and human developers can understand.

@@ -1,0 +1,13 @@
+<a href="#" class="back-to-top" title="Back to top">↑</a>
+
+<script>
+  // Show/hide back to top button based on scroll position
+  window.addEventListener('scroll', function() {
+    var backToTop = document.querySelector('.back-to-top');
+    if (window.pageYOffset > 300) {
+      backToTop.style.display = 'block';
+    } else {
+      backToTop.style.display = 'none';
+    }
+  });
+</script>

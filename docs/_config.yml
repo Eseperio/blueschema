@@ -8,3 +8,14 @@ remote_theme: pages-themes/minimal@v0.2.0
 
 plugins:
   - jekyll-remote-theme
+
+# Logo configuration
+logo: /blueschema-logo.jpeg
+
+# Show downloads button
+show_downloads: false
+
+# GitHub repository
+github:
+  repository_url: https://github.com/Eseperio/blueschema
+  is_project_page: true

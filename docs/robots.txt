@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eseperio.github.io/blueschema/sitemap.xml

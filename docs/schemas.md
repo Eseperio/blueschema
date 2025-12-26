@@ -3,6 +3,15 @@ layout: default
 title: Schema Reference
 ---
 
+<div class="quick-nav">
+  <h4>📚 Schema Categories</h4>
+  <ul>
+    <li><a href="#core-schemas">Core Schemas</a></li>
+    <li><a href="#visual-schemas">Visual Schemas</a></li>
+    <li><a href="#how-to-use-this-reference">How to Use</a></li>
+  </ul>
+</div>
+
 # BlueSchema Reference
 
 This reference guide provides detailed documentation for every schema in BlueSchema. Each schema page includes:

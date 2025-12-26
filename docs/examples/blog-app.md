@@ -3,6 +3,16 @@ layout: default
 title: Blog Application Example
 ---
 
+<div class="quick-nav">
+  <h4>📚 Example Sections</h4>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#structure">Structure</a></li>
+    <li><a href="#key-features-demonstrated">Key Features</a></li>
+    <li><a href="#using-this-example">Using This Example</a></li>
+  </ul>
+</div>
+
 # Blog Application Example
 
 This comprehensive example demonstrates how BlueSchema creates a **shared context** that both AI and humans can understand. The blog application showcases all major features of BlueSchema in a real-world scenario.
