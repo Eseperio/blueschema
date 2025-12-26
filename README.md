@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="blueschema-logo.jpeg" alt="Blueschema library logo" width="128"/>
+  <img src="docs/blueschema-logo.jpeg" alt="Blueschema library logo" width="128"/>
 </p>
 
 
