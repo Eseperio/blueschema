@@ -22,11 +22,12 @@
       <div class="nav-previous">
         {% if prev_index >= 0 %}
           {% assign prev_schema = schema_pages[prev_index] %}
+          {% assign prev_schema_title = prev_schema | replace: "-", " " | capitalize %}
           <a href="{{ site.baseurl }}/schemas/{{ prev_schema }}" class="nav-link">
             <span class="nav-arrow">←</span>
             <span class="nav-text">
               <span class="nav-label">Previous</span>
-              <span class="nav-title">{{ prev_schema | replace: "-", " " | capitalize }}</span>
+              <span class="nav-title">{{ prev_schema_title }}</span>
             </span>
           </a>
         {% endif %}
@@ -41,10 +42,11 @@
       <div class="nav-next">
         {% if next_index < schema_pages.size %}
           {% assign next_schema = schema_pages[next_index] %}
+          {% assign next_schema_title = next_schema | replace: "-", " " | capitalize %}
           <a href="{{ site.baseurl }}/schemas/{{ next_schema }}" class="nav-link">
             <span class="nav-text">
               <span class="nav-label">Next</span>
-              <span class="nav-title">{{ next_schema | replace: "-", " " | capitalize }}</span>
+              <span class="nav-title">{{ next_schema_title }}</span>
             </span>
             <span class="nav-arrow">→</span>
           </a>
