@@ -60,6 +60,18 @@
           "type": "string",
           "length": 50,
           "default": "reader"
+        },
+        {
+          "name": "full_name",
+          "type": "string",
+          "computed": true,
+          "computeLogic": "Concatenate first_name and last_name with a space between them. If both are null or empty, return the username. Trim any extra whitespace."
+        },
+        {
+          "name": "display_name",
+          "type": "string",
+          "computed": true,
+          "computeLogic": "Return the full_name if available, otherwise return the username"
         }
       ],
       "relations": [
@@ -79,7 +91,14 @@
         }
       ],
       "timestamps": true,
-      "softDeletes": true
+      "softDeletes": true,
+      "hooks": {
+        "beforeCreate": "Validate email format and check if email is already in use. Generate a unique username if not provided. Normalize email to lowercase and trim whitespace.",
+        "afterCreate": "Send a welcome email to the user using emailService. Create an audit log entry for the new user registration.",
+        "beforeUpdate": "If email is being changed, validate the new email and check for duplicates. If password_hash is being updated, ensure it's properly hashed.",
+        "beforeDelete": "Check if user has any published posts. If yes, either prevent deletion or provide option to transfer posts to another user.",
+        "afterDelete": "Invalidate all user sessions. Remove user from all email lists. Anonymize user's comments by replacing author name with 'Deleted User'."
+      }
     },
     {
       "name": "Post",
@@ -149,6 +168,24 @@
             "targetField": "id",
             "onDelete": "SET NULL"
           }
+        },
+        {
+          "name": "reading_time",
+          "type": "integer",
+          "computed": true,
+          "computeLogic": "Calculate estimated reading time in minutes based on content length. Assume average reading speed of 200 words per minute. Round up to nearest minute."
+        },
+        {
+          "name": "comment_count",
+          "type": "integer",
+          "computed": true,
+          "computeLogic": "Count the number of approved comments associated with this post"
+        },
+        {
+          "name": "is_popular",
+          "type": "boolean",
+          "computed": true,
+          "computeLogic": "Return true if view_count is greater than 1000, otherwise false"
         }
       ],
       "relations": [
@@ -173,7 +210,15 @@
         }
       ],
       "timestamps": true,
-      "softDeletes": true
+      "softDeletes": true,
+      "hooks": {
+        "beforeCreate": "Generate a unique slug from the title using slugService. If excerpt is not provided, auto-generate it from the first 200 characters of content. Validate that title is not empty and content has minimum length.",
+        "afterCreate": "Clear any cached post lists. Index the post content for search if published.",
+        "beforeUpdate": "If title changes, regenerate the slug to keep it synchronized. If published status changes from false to true, set published_at to current timestamp.",
+        "afterUpdate": "Clear cached versions of this post. If post was published, notify followers of the author. Update search index with new content.",
+        "beforeDelete": "Log which user is deleting the post and the reason if provided.",
+        "afterDelete": "Remove post from search index. Clear all cached data related to this post. Decrement the post count for the associated category."
+      }
     },
     {
       "name": "Category",
@@ -274,7 +319,13 @@
         }
       ],
       "timestamps": true,
-      "softDeletes": true
+      "softDeletes": true,
+      "hooks": {
+        "beforeCreate": "Check for spam content using basic keyword filtering. Validate that content length is within acceptable limits (not empty, not too long). Ensure the referenced post exists.",
+        "afterCreate": "Notify the post author about the new comment using notificationService. If this is user's first comment, update user statistics.",
+        "beforeValidate": "Sanitize HTML content to prevent XSS attacks. Trim whitespace and normalize line breaks.",
+        "afterValidate": "Run content through spam detection algorithm. Flag suspicious comments for manual review."
+      }
     }
   ],
   "actions": [

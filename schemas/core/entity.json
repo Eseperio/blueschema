@@ -34,6 +34,45 @@
       "type": "boolean",
       "description": "Indicates whether the entity supports soft deletes (deleted_at)",
       "default": false
+    },
+    "hooks": {
+      "type": "object",
+      "description": "Lifecycle hooks that define logic to execute at specific moments",
+      "properties": {
+        "beforeCreate": {
+          "type": "string",
+          "description": "Prompt describing logic to execute before creating this entity"
+        },
+        "afterCreate": {
+          "type": "string",
+          "description": "Prompt describing logic to execute after creating this entity"
+        },
+        "beforeUpdate": {
+          "type": "string",
+          "description": "Prompt describing logic to execute before updating this entity"
+        },
+        "afterUpdate": {
+          "type": "string",
+          "description": "Prompt describing logic to execute after updating this entity"
+        },
+        "beforeDelete": {
+          "type": "string",
+          "description": "Prompt describing logic to execute before deleting this entity"
+        },
+        "afterDelete": {
+          "type": "string",
+          "description": "Prompt describing logic to execute after deleting this entity"
+        },
+        "beforeValidate": {
+          "type": "string",
+          "description": "Prompt describing logic to execute before validating this entity"
+        },
+        "afterValidate": {
+          "type": "string",
+          "description": "Prompt describing logic to execute after validating this entity"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "required": ["name", "tableName", "fields"]
