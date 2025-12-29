@@ -28,8 +28,8 @@ These schemas define the core business logic, data structures, and application b
 | Schema | Purpose |
 | --- | --- |
 | `application.json` | Entry point that ties together all components of an app, including actions and groups. |
-| `core/entity.json` | Describes entities and their fields. |
-| `core/field.json` | Defines individual field properties including type, constraints, foreign keys, and indexes. |
+| `core/entity.json` | Describes entities and their fields. Supports lifecycle hooks for custom logic at key moments (beforeCreate, afterCreate, beforeUpdate, afterUpdate, beforeDelete, afterDelete, beforeValidate, afterValidate). |
+| `core/field.json` | Defines individual field properties including type, constraints, foreign keys, indexes, and computed/virtual fields. |
 | `core/relation.json` | Models relationships between entities (hasOne, hasMany) with support for cascading and join tables. |
 | `core/validation.json` | Specifies validation rules for fields including length, pattern, format, and value constraints. |
 | `core/action.json` | Models an action. The `description` acts as the action's prompt, and `useServices` lists dependent services. |
@@ -57,6 +57,82 @@ These schemas define the user interface layout and visual components:
 | `view/cardWithIcon.json` | Enhanced card component that includes an icon. |
 | `view/menuHorizontal.json` | Horizontal navigation menu component. |
 | `view/menuVertical.json` | Vertical navigation menu component. |
+
+## Key Features
+
+### Lifecycle Hooks
+
+Entities can define lifecycle hooks to execute custom logic at specific moments. Each hook uses a prompt-based description, following the same pattern as actions and services:
+
+```json
+{
+  "name": "User",
+  "tableName": "users",
+  "fields": [...],
+  "hooks": {
+    "beforeCreate": "Generate a unique username if not provided. Hash the password using bcrypt with salt rounds of 10.",
+    "afterCreate": "Send a welcome email to the user. Log the user registration event.",
+    "beforeUpdate": "If password is being changed, hash it with bcrypt. Validate that email changes are to valid, non-duplicate addresses.",
+    "afterUpdate": "If email was changed, send a confirmation email to the new address.",
+    "beforeDelete": "Check if user has any active subscriptions. Prevent deletion if subscriptions exist.",
+    "afterDelete": "Anonymize all user's comments. Remove user from all mailing lists.",
+    "beforeValidate": "Trim whitespace from email and username fields. Convert email to lowercase.",
+    "afterValidate": "Check email against spam database. Flag suspicious registrations for review."
+  }
+}
+```
+
+Available lifecycle hooks:
+- `beforeCreate`: Executed before creating a new entity instance
+- `afterCreate`: Executed after successfully creating a new entity instance
+- `beforeUpdate`: Executed before updating an entity instance
+- `afterUpdate`: Executed after successfully updating an entity instance
+- `beforeDelete`: Executed before deleting an entity instance
+- `afterDelete`: Executed after successfully deleting an entity instance
+- `beforeValidate`: Executed before validating an entity instance
+- `afterValidate`: Executed after successfully validating an entity instance
+
+### Computed Fields
+
+Fields can be marked as computed/virtual, meaning they are calculated at runtime and not stored in the database:
+
+```json
+{
+  "name": "User",
+  "tableName": "users",
+  "fields": [
+    {
+      "name": "first_name",
+      "type": "string",
+      "length": 100
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "length": 100
+    },
+    {
+      "name": "full_name",
+      "type": "string",
+      "computed": true,
+      "computeLogic": "Concatenate first_name and last_name with a space between them. Return empty string if both are null."
+    },
+    {
+      "name": "age",
+      "type": "integer",
+      "computed": true,
+      "computeLogic": "Calculate age based on date_of_birth field. Return the number of complete years between date_of_birth and current date."
+    }
+  ]
+}
+```
+
+Computed fields:
+- Are not stored in the database
+- Are calculated dynamically when the entity is accessed
+- Use `computeLogic` to describe how the value should be calculated
+- Can reference other fields in the same entity
+- Are useful for derived data, concatenations, calculations, and formatting
 
 ## How to Use
 

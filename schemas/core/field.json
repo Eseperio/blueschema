@@ -87,6 +87,15 @@
         }
       },
       "required": ["targetEntity", "targetField"]
+    },
+    "computed": {
+      "type": "boolean",
+      "description": "Indicates if this field is computed/virtual and not stored in the database",
+      "default": false
+    },
+    "computeLogic": {
+      "type": "string",
+      "description": "Prompt describing how to compute this field's value. Only applicable when computed is true"
     }
   },
   "required": ["name", "type"]
