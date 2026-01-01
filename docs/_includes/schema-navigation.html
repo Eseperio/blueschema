@@ -1,0 +1,57 @@
+{% comment %}
+  Schema navigation - provides next/previous links for schema documentation pages
+{% endcomment %}
+
+{% assign schema_pages = "application,entity,field,relation,validation,action,group,parameter,service,dataSource,environment,accessControl,access,permission,view,row,column,component,table,list,card,cardWithIcon,menuHorizontal,menuVertical" | split: "," %}
+
+{% assign current_index = nil %}
+{% for schema in schema_pages %}
+  {% assign schema_url = "/schemas/" | append: schema %}
+  {% if page.url contains schema_url %}
+    {% assign current_index = forloop.index0 %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if current_index %}
+  <nav class="schema-navigation">
+    <div class="nav-container">
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+      
+      <div class="nav-previous">
+        {% if prev_index >= 0 %}
+          {% assign prev_schema = schema_pages[prev_index] %}
+          {% assign prev_schema_title = prev_schema | replace: "-", " " | capitalize %}
+          <a href="{{ site.baseurl }}/schemas/{{ prev_schema }}" class="nav-link">
+            <span class="nav-arrow">←</span>
+            <span class="nav-text">
+              <span class="nav-label">Previous</span>
+              <span class="nav-title">{{ prev_schema_title }}</span>
+            </span>
+          </a>
+        {% endif %}
+      </div>
+      
+      <div class="nav-up">
+        <a href="{{ site.baseurl }}/schemas" class="nav-link-up">
+          ↑ Schema Reference
+        </a>
+      </div>
+      
+      <div class="nav-next">
+        {% if next_index < schema_pages.size %}
+          {% assign next_schema = schema_pages[next_index] %}
+          {% assign next_schema_title = next_schema | replace: "-", " " | capitalize %}
+          <a href="{{ site.baseurl }}/schemas/{{ next_schema }}" class="nav-link">
+            <span class="nav-text">
+              <span class="nav-label">Next</span>
+              <span class="nav-title">{{ next_schema_title }}</span>
+            </span>
+            <span class="nav-arrow">→</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+{% endif %}
