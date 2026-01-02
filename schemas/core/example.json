@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Example Schema",
+  "type": "object",
+  "properties": {
+    "input": {
+      "description": "Example input data"
+    },
+    "output": {
+      "description": "Example output data"
+    },
+    "expected": {
+      "description": "Expected result"
+    },
+    "explanation": {
+      "type": "string",
+      "description": "Explanation of what this example demonstrates"
+    },
+    "scenario": {
+      "type": "string",
+      "description": "Description of the scenario or use case"
+    }
+  },
+  "additionalProperties": false
+}

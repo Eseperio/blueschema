@@ -3,6 +3,20 @@
   "title": "Group Schema",
   "type": "object",
   "properties": {
+    "name": {
+      "type": "string",
+      "description": "Group name"
+    },
+    "description": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./advancedDescription.json"
+        }
+      ]
+    },
     "routeSuffix": {
       "type": "string",
       "description": "Route segment appended to contained actions"
@@ -19,6 +33,6 @@
       "minItems": 1
     }
   },
-  "required": ["routeSuffix", "actions"],
+  "required": ["name", "routeSuffix", "actions"],
   "additionalProperties": false
 }

@@ -8,8 +8,15 @@
       "description": "Service title"
     },
     "description": {
-      "type": "string",
-      "description": "Prompt describing what the service should do"
+      "description": "Prompt describing what the service should do",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./advancedDescription.json"
+        }
+      ]
     }
   },
   "required": ["title", "description"],

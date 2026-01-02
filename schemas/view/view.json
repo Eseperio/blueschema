@@ -4,8 +4,15 @@
   "type": "object",
   "properties": {
     "description": {
-      "type": "string",
-      "description": "Instructions for customizing this view"
+      "description": "Instructions for customizing this view",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "../core/advancedDescription.json"
+        }
+      ]
     },
     "rows": {
       "type": "array",

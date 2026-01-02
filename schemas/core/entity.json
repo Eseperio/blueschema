@@ -7,6 +7,16 @@
       "type": "string",
       "description": "Entity name in PascalCase format"
     },
+    "description": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./advancedDescription.json"
+        }
+      ]
+    },
     "tableName": {
       "type": "string",
       "description": "Database table name in snake_case format"

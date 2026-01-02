@@ -12,7 +12,14 @@
       "description": "Optional route or endpoint"
     },
     "description": {
-      "type": "string"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./advancedDescription.json"
+        }
+      ]
     },
     "parameters": {
       "type": "array",

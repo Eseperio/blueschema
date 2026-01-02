@@ -9,7 +9,16 @@
     "id": { "type": "string" },
     "name": { "type": "string", "minLength": 1 },
     "version": { "type": "string" },
-    "description": { "type": "string" },
+    "description": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./core/advancedDescription.json"
+        }
+      ]
+    },
     "license": { "type": "string" },
     "entities": {
       "type": "array",
