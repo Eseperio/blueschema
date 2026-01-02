@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "id": "example-with-advanced-description",
+  "name": "ExampleApp",
+  "version": "1.0.0",
+  "description": "Example application demonstrating AdvancedDescription usage",
+  "entities": [
+    {
+      "name": "User",
+      "description": {
+        "intent": "Represents a user account in the system with authentication and profile information",
+        "examples": [
+          {
+            "input": {
+              "email": "john@example.com",
+              "password": "SecurePass123"
+            },
+            "output": {
+              "id": "550e8400-e29b-41d4-a716-446655440000",
+              "email": "john@example.com",
+              "created_at": "2024-01-15T10:30:00Z"
+            },
+            "explanation": "Creating a new user account with email and hashed password"
+          }
+        ],
+        "context": "Users are the primary actors in the system. Each user must have a unique email address and can have multiple roles assigned.",
+        "constraints": [
+          "Email must be unique across all users",
+          "Password must be at least 8 characters with uppercase, lowercase, and numbers",
+          "Usernames are auto-generated from email if not provided"
+        ]
+      },
+      "tableName": "users",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "unique": true,
+          "required": true
+        },
+        {
+          "name": "password_hash",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "relations": [],
+      "timestamps": true,
+      "softDeletes": false
+    }
+  ],
+  "actions": [
+    {
+      "name": "registerUser",
+      "route": "/auth/register",
+      "description": {
+        "intent": "Registers a new user account with email verification",
+        "examples": [
+          {
+            "input": {
+              "email": "newuser@example.com",
+              "password": "MyPassword123",
+              "name": "New User"
+            },
+            "output": {
+              "success": true,
+              "userId": "550e8400-e29b-41d4-a716-446655440000",
+              "message": "Verification email sent"
+            },
+            "scenario": "Successful registration",
+            "explanation": "User provides valid credentials, system creates account and sends verification email"
+          },
+          {
+            "input": {
+              "email": "existing@example.com",
+              "password": "Password123"
+            },
+            "output": {
+              "success": false,
+              "error": "Email already registered"
+            },
+            "scenario": "Duplicate email attempt",
+            "explanation": "System rejects registration if email is already in use"
+          }
+        ],
+        "context": "This is a public endpoint accessible without authentication. Rate limited to prevent abuse.",
+        "constraints": [
+          "Rate limit: 10 registrations per hour per IP address",
+          "Email domain must not be in blacklist",
+          "Requires valid email format and strong password"
+        ]
+      },
+      "responseFormat": "json",
+      "useServices": ["EmailService", "ValidationService"]
+    }
+  ],
+  "dataSources": [
+    {
+      "name": "MainDatabase",
+      "description": {
+        "intent": "Primary PostgreSQL database for storing all application data",
+        "context": "Hosted on AWS RDS with automatic backups and read replicas for high availability",
+        "constraints": [
+          "Maximum connection pool size: 100",
+          "Connection timeout: 30 seconds",
+          "Requires SSL/TLS for all connections"
+        ]
+      },
+      "type": "database",
+      "config": {
+        "host": "localhost",
+        "port": 5432,
+        "database": "app_db"
+      }
+    }
+  ],
+  "services": [
+    {
+      "title": "EmailService",
+      "description": {
+        "intent": "Handles all email communications including transactional and notification emails",
+        "examples": [
+          {
+            "input": {
+              "to": "user@example.com",
+              "template": "welcome",
+              "variables": {
+                "name": "John Doe"
+              }
+            },
+            "output": {
+              "messageId": "msg-123456",
+              "status": "sent"
+            },
+            "explanation": "Sending a welcome email using a predefined template"
+          }
+        ],
+        "context": "Uses SendGrid API for email delivery. Tracks delivery status and bounces.",
+        "constraints": [
+          "Daily sending limit: 10,000 emails",
+          "Maximum attachment size: 10MB",
+          "Supports HTML and plain text formats"
+        ]
+      }
+    }
+  ],
+  "environment": [
+    {
+      "name": "DATABASE_URL",
+      "description": {
+        "intent": "PostgreSQL connection string for the primary database",
+        "examples": [
+          {
+            "input": "postgresql://user:password@localhost:5432/dbname",
+            "explanation": "Standard PostgreSQL connection URL format"
+          }
+        ],
+        "constraints": [
+          "Must use SSL in production",
+          "Password must be at least 16 characters"
+        ]
+      },
+      "required": true
+    }
+  ]
+}
