@@ -14,10 +14,10 @@ export interface Example {
 }
 
 export interface AdvancedDescription {
-  intent: string;  // Descripción del propósito (obligatorio)
-  examples?: Example[];  // Casos de uso concretos
-  context?: string;  // Información de contexto
-  constraints?: string[];  // Límites y reglas importantes
+  intent: string;  // Description of the purpose (required)
+  examples?: Example[];  // Concrete usage examples
+  context?: string;  // Contextual information
+  constraints?: string[];  // Important limits and rules
 }
 
 export interface BaseItem {
