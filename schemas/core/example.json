@@ -4,13 +4,13 @@
   "type": "object",
   "properties": {
     "input": {
-      "description": "Example input data"
+      "description": "Example input data (can be any JSON value)"
     },
     "output": {
-      "description": "Example output data"
+      "description": "Example output data (can be any JSON value)"
     },
     "expected": {
-      "description": "Expected result"
+      "description": "Expected result (can be any JSON value)"
     },
     "explanation": {
       "type": "string",

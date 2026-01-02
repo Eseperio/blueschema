@@ -8,6 +8,7 @@
       "description": "Group name"
     },
     "description": {
+      "description": "Optional description of the group's purpose",
       "oneOf": [
         {
           "type": "string"
