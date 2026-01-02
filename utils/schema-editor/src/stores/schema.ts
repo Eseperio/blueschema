@@ -6,9 +6,9 @@ import { ref, computed } from 'vue'
 export type Category = 'entities' | 'actions' | 'dataSources' | 'services' | 'environment' | 'accessControl';
 
 export interface Example {
-  input?: any;
-  output?: any;
-  expected?: any;
+  input?: unknown;
+  output?: unknown;
+  expected?: unknown;
   explanation?: string;
   scenario?: string;
 }
