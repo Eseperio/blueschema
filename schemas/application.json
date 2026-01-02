@@ -10,6 +10,7 @@
     "name": { "type": "string", "minLength": 1 },
     "version": { "type": "string" },
     "description": {
+      "description": "Optional description of the application's purpose and features",
       "oneOf": [
         {
           "type": "string"

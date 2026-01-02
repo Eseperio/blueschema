@@ -8,6 +8,7 @@
       "description": "Entity name in PascalCase format"
     },
     "description": {
+      "description": "Optional description of the entity's purpose and usage",
       "oneOf": [
         {
           "type": "string"

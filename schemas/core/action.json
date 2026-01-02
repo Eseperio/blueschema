@@ -12,6 +12,7 @@
       "description": "Optional route or endpoint"
     },
     "description": {
+      "description": "Optional description of the action's purpose and behavior",
       "oneOf": [
         {
           "type": "string"

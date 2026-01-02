@@ -8,6 +8,7 @@
       "description": "Data source name"
     },
     "description": {
+      "description": "Optional description of the data source's purpose and configuration",
       "oneOf": [
         {
           "type": "string"

@@ -14,6 +14,7 @@
             "description": "Role name"
           },
           "description": {
+            "description": "Optional description of the role's purpose and responsibilities",
             "oneOf": [
               {
                 "type": "string"
