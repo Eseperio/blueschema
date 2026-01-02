@@ -135,7 +135,7 @@ const save = () => {
         <div v-if="activeCategory !== 'services'" class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
           <textarea 
-            v-model="editFormState.description"
+            v-model="(editFormState.description as any)"
             rows="8"
             class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
             placeholder="Describe the purpose of this element..."
@@ -391,7 +391,7 @@ const save = () => {
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Description (Prompt)</label>
               <textarea 
-                  v-model="editFormState.description"
+                  v-model="(editFormState.description as any)"
                   rows="8"
                   class="w-full p-2 border border-gray-300 rounded-md"
                   placeholder="Describe what the service does..."
