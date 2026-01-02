@@ -9,8 +9,15 @@
       "description": "Name of the environment variable"
     },
     "description": {
-      "type": "string",
-      "description": "Description of the variable's purpose"
+      "description": "Description of the variable's purpose",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./advancedDescription.json"
+        }
+      ]
     },
     "required": {
       "type": "boolean",

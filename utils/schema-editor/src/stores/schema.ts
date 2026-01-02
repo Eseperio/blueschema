@@ -5,10 +5,25 @@ import { ref, computed } from 'vue'
 
 export type Category = 'entities' | 'actions' | 'dataSources' | 'services' | 'environment' | 'accessControl';
 
+export interface Example {
+  input?: unknown;
+  output?: unknown;
+  expected?: unknown;
+  explanation?: string;
+  scenario?: string;
+}
+
+export interface AdvancedDescription {
+  intent: string;  // Description of the purpose (required)
+  examples?: Example[];  // Concrete usage examples
+  context?: string;  // Contextual information
+  constraints?: string[];  // Important limits and rules
+}
+
 export interface BaseItem {
   id: string; 
   name: string;
-  description?: string;
+  description?: string | AdvancedDescription;
 }
 
 // Validation Schema
@@ -270,6 +285,12 @@ export const useSchemaStore = defineStore('schema', () => {
     return currentLevel;
   });
 
+  const getDescriptionText = (description?: string | AdvancedDescription): string => {
+    if (!description) return '';
+    if (typeof description === 'string') return description;
+    return description.intent || '';
+  };
+
   const filteredItems = computed(() => {
     let items: SchemaItem[] = [];
     if (activeCategory.value === 'actions') {
@@ -282,7 +303,7 @@ export const useSchemaStore = defineStore('schema', () => {
 
     return items.filter(item => 
       (getDisplayName(item)).toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      (item.description || '').toLowerCase().includes(searchQuery.value.toLowerCase())
+      getDescriptionText(item.description).toLowerCase().includes(searchQuery.value.toLowerCase())
     );
   });
 

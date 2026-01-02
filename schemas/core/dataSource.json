@@ -7,6 +7,17 @@
       "type": "string",
       "description": "Data source name"
     },
+    "description": {
+      "description": "Optional description of the data source's purpose and configuration",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./advancedDescription.json"
+        }
+      ]
+    },
     "type": {
       "type": "string",
       "enum": ["database", "api", "queue", "file"],

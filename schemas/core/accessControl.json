@@ -13,6 +13,17 @@
             "type": "string",
             "description": "Role name"
           },
+          "description": {
+            "description": "Optional description of the role's purpose and responsibilities",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "./advancedDescription.json"
+              }
+            ]
+          },
           "permissions": {
             "type": "array",
             "description": "List of permissions granted to the role",

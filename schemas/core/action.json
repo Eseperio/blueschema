@@ -12,7 +12,15 @@
       "description": "Optional route or endpoint"
     },
     "description": {
-      "type": "string"
+      "description": "Optional description of the action's purpose and behavior",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "./advancedDescription.json"
+        }
+      ]
     },
     "parameters": {
       "type": "array",
