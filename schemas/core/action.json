@@ -48,6 +48,29 @@
     "view": {
       "description": "Optional view definition",
       "$ref": "../view/view.json"
+    },
+    "nextActions": {
+      "type": "array",
+      "description": "Possible next actions the user can take after this one",
+      "items": {
+        "type": "object",
+        "required": ["actionRef"],
+        "properties": {
+          "actionRef": {
+            "type": "string",
+            "description": "Reference to another action name"
+          },
+          "description": {
+            "description": "Optional description of when and why this action follows (acts as a prompt for AI)",
+            "oneOf": [
+              { "type": "null" },
+              { "type": "string" },
+              { "$ref": "./advancedDescription.json" }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "required": ["name"],
