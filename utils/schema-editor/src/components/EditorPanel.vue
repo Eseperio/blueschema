@@ -3,7 +3,7 @@ import { useSchemaStore } from '@/stores/schema'
 import { storeToRefs } from 'pinia'
 import { ChevronRight, Save, X, Plus, Type, AlertCircle, Trash2, Key } from 'lucide-vue-next'
 import CollapsibleSection from './CollapsibleSection.vue';
-import type { EntityItem, ActionItem, ServiceItem, DataSourceItem, EnvironmentItem, RoleItem, RelationItem, Hooks, GroupItem } from '@/stores/schema';
+import type { EntityItem, ActionItem, ServiceItem, DataSourceItem, EnvironmentItem, RoleItem, RelationItem, Hooks, GroupItem, NextAction } from '@/stores/schema';
 import { computed, ref } from 'vue';
 
 const store = useSchemaStore()
@@ -72,6 +72,25 @@ const addPermission = () => {
 const removePermission = (idx: number) => {
   const item = editFormState.value as RoleItem;
   item.permissions.splice(idx, 1);
+};
+
+const addNextAction = () => {
+  const item = editFormState.value as ActionItem;
+  const input = document.getElementById('newNextActionRef') as HTMLInputElement;
+  if (input.value) {
+    if (!item.nextActions) {
+      item.nextActions = [];
+    }
+    item.nextActions.push({ actionRef: input.value, description: '' });
+    input.value = '';
+  }
+};
+
+const removeNextAction = (idx: number) => {
+  const item = editFormState.value as ActionItem;
+  if (item.nextActions) {
+    item.nextActions.splice(idx, 1);
+  }
 };
 
 const parseJsonConfig = (e: Event) => {
@@ -371,6 +390,51 @@ const save = () => {
                   <button @click="store.openViewBuilder" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     {{ (editFormState as ActionItem).view ? 'Design View' : 'Create View' }}
                   </button>
+                </div>
+              </CollapsibleSection>
+
+              <CollapsibleSection :title="`Next Actions (${(editFormState as ActionItem).nextActions?.length || 0})`" :defaultOpen="true">
+                <div class="space-y-3">
+                  <div v-for="(nextAction, idx) in (editFormState as ActionItem).nextActions" :key="idx" class="bg-gray-50 border border-gray-200 rounded-md p-3 hover:border-blue-300 transition-colors">
+                    <div class="flex items-start gap-3">
+                      <div class="flex-1 space-y-2">
+                        <div class="flex items-center gap-2">
+                          <ChevronRight :size="14" class="text-gray-400" />
+                          <input 
+                            v-model="nextAction.actionRef"
+                            class="flex-1 font-mono text-sm bg-white border border-gray-300 rounded px-2 py-1 text-blue-700 font-semibold focus:ring-2 focus:ring-blue-500"
+                            placeholder="targetActionName"
+                          />
+                          <button 
+                            @click="removeNextAction(idx)"
+                            class="text-gray-400 hover:text-red-500"
+                          >
+                            <X :size="16" />
+                          </button>
+                        </div>
+                        <div>
+                          <textarea 
+                            v-model="(nextAction.description as string)"
+                            rows="2"
+                            class="w-full p-2 border border-gray-300 rounded-md text-xs"
+                            placeholder="Optional: Describe when and why this action follows (acts as AI prompt)..."
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex gap-2 mt-2">
+                    <input 
+                      type="text" 
+                      id="newNextActionRef"
+                      placeholder="Action name reference" 
+                      class="flex-1 text-sm p-2 border border-gray-300 rounded font-mono"
+                      @keydown.enter.prevent="addNextAction"
+                    />
+                    <button @click="addNextAction" class="px-4 py-2 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 flex items-center gap-1">
+                      <Plus :size="16" /> Add
+                    </button>
+                  </div>
                 </div>
               </CollapsibleSection>
           </template>
