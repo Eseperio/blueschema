@@ -94,6 +94,11 @@ export interface ParameterItem {
   schema?: any; 
 }
 
+export interface NextAction {
+  actionRef: string;
+  description?: string | AdvancedDescription | null;
+}
+
 export interface ActionItem extends BaseItem {
   route?: string;
   parameters?: ParameterItem[];
@@ -101,6 +106,7 @@ export interface ActionItem extends BaseItem {
   responseFormat?: 'json' | 'xml' | 'html' | 'text';
   access?: any[]; 
   view?: ViewItem;
+  nextActions?: NextAction[];
 }
 
 export interface GroupItem {
@@ -329,7 +335,7 @@ export const useSchemaStore = defineStore('schema', () => {
       if (type === 'group') {
         newItem = { ...newItemBase, routeSuffix: '/new_group', actions: [] } as GroupItem;
       } else {
-        newItem = { ...newItemBase, parameters: [], useServices: [], route: '', responseFormat: 'json' } as ActionItem;
+        newItem = { ...newItemBase, parameters: [], useServices: [], route: '', responseFormat: 'json', nextActions: [] } as ActionItem;
       }
     } else if (activeCategory.value === 'dataSources') {
       newItem = { ...newItemBase, type: 'database', config: {} } as DataSourceItem;
